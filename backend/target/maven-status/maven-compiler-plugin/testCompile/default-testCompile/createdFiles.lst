@@ -1,0 +1,3 @@
+com/fieldservice/taskmanager/TaskManagerApplicationTest.class
+com/fieldservice/taskmanager/dto/TaskDTOTest.class
+com/fieldservice/taskmanager/controller/TaskControllerTest.class

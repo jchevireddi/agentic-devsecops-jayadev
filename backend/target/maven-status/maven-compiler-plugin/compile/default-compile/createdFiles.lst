@@ -1,0 +1,4 @@
+com/fieldservice/taskmanager/controller/TaskController.class
+com/fieldservice/taskmanager/TaskManagerApplication.class
+com/fieldservice/taskmanager/dto/TaskDTO$TaskDTOBuilder.class
+com/fieldservice/taskmanager/dto/TaskDTO.class

@@ -177,3 +177,83 @@ Work on issue #45
 2. Go to agents panel
 3. Assign Test Generator agent
 4. Agent generates additional tests for the implemented code
+
+---
+
+## How to Run the Backend Project
+
+### Prerequisites
+
+- Java 17 or higher
+- Maven 3.6 or higher
+
+### Building the Project
+
+1. Navigate to the backend directory:
+   ```bash
+   cd backend
+   ```
+
+2. Build the project with Maven:
+   ```bash
+   mvn clean package
+   ```
+
+### Running Tests
+
+Run all tests with code coverage:
+```bash
+mvn clean test
+```
+
+View the code coverage report:
+```bash
+open target/site/jacoco/index.html
+```
+
+### Running the Application
+
+1. Start the application using Maven:
+   ```bash
+   mvn spring-boot:run
+   ```
+
+   Or run the JAR file directly:
+   ```bash
+   java -jar target/task-manager-0.0.1-SNAPSHOT.jar
+   ```
+
+2. The application will start on `http://localhost:8080`
+
+### Testing the API
+
+Test the POST /api/tasks endpoint:
+```bash
+curl -X POST http://localhost:8080/api/tasks \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Fix HVAC System",
+    "description": "Client reported AC not cooling properly",
+    "address": "123 Main St, Springfield",
+    "priority": "HIGH",
+    "duration": 120
+  }'
+```
+
+Expected response:
+```json
+{
+  "id": "generated-uuid",
+  "title": "Fix HVAC System",
+  "description": "Client reported AC not cooling properly",
+  "address": "123 Main St, Springfield",
+  "priority": "HIGH",
+  "duration": 120
+}
+```
+
+### Available Endpoints
+
+- **POST /api/tasks** - Create a new task
+  - Accepts: JSON body with task fields (title, description, address, priority, duration)
+  - Returns: Task object with generated UUID
