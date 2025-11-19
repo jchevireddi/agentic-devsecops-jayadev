@@ -275,6 +275,45 @@ Expected response (with a generated UUID):
   - Accepts: JSON body with task fields (title, description, address, priority, duration)
   - Returns: Task object with generated UUID
   - The task is persisted to the H2 database
+  - **Validation Rules:**
+    - `title` - Required, cannot be blank
+    - `address` - Required, cannot be blank
+    - `priority` - Required, cannot be blank
+    - `description` - Optional
+    - `duration` - Optional
+  - **Error Handling:** Returns HTTP 400 with field-specific error messages when validation fails
+
+#### Validation Examples
+
+Test with missing required fields:
+```bash
+curl -X POST http://localhost:8080/api/tasks \
+  -H "Content-Type: application/json" \
+  -d '{}'
+```
+
+Response (HTTP 400):
+```json
+{
+  "title": "Title is required",
+  "address": "Address is required",
+  "priority": "Priority is required"
+}
+```
+
+Test with blank title:
+```bash
+curl -X POST http://localhost:8080/api/tasks \
+  -H "Content-Type: application/json" \
+  -d '{"title": "   ", "address": "123 Main St", "priority": "HIGH"}'
+```
+
+Response (HTTP 400):
+```json
+{
+  "title": "Title is required"
+}
+```
 
 ### Accessing the H2 Database Console
 
