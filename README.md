@@ -244,7 +244,7 @@ The project maintains 84%+ test coverage across all layers.
 
 ### Testing the API
 
-Test the POST /api/tasks endpoint to create a task:
+#### Create a task using POST endpoint:
 ```bash
 curl -X POST http://localhost:8080/api/tasks \
   -H "Content-Type: application/json" \
@@ -267,6 +267,38 @@ Expected response (with a generated UUID):
   "priority": "HIGH",
   "duration": 120
 }
+```
+
+#### Retrieve all tasks using GET endpoint:
+```bash
+curl -X GET http://localhost:8080/api/tasks
+```
+
+Expected response when tasks exist:
+```json
+[
+  {
+    "id": "0f7af77b-0407-458c-9a37-28457fe64379",
+    "title": "Fix HVAC System",
+    "description": "Client reported AC not cooling properly",
+    "address": "123 Main St, Springfield",
+    "priority": "HIGH",
+    "duration": 120
+  },
+  {
+    "id": "bd2829f8-ca49-46c3-9d47-b23c4f616925",
+    "title": "Install Water Heater",
+    "description": "New water heater installation",
+    "address": "456 Oak Ave, Metropolis",
+    "priority": "MEDIUM",
+    "duration": 180
+  }
+]
+```
+
+Expected response when no tasks exist:
+```json
+[]
 ```
 
 ### Available Endpoints
@@ -314,6 +346,11 @@ Response (HTTP 400):
   "title": "Title is required"
 }
 ```
+
+- **GET /api/tasks** - Retrieve all tasks
+  - Returns: JSON array of all tasks
+  - Returns empty array `[]` when no tasks exist
+  - Returns list of task objects when tasks exist
 
 ### Accessing the H2 Database Console
 

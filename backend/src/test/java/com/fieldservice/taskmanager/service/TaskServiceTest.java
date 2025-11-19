@@ -10,6 +10,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -190,5 +194,94 @@ class TaskServiceTest {
         assertNull(result.getDescription());
         
         verify(taskRepository, times(1)).save(any(Task.class));
+    }
+
+    @Test
+    void testGetAllTasks_ReturnsEmptyList() {
+        // Arrange
+        when(taskRepository.findAll()).thenReturn(Collections.emptyList());
+
+        // Act
+        List<TaskDTO> result = taskService.getAllTasks();
+
+        // Assert
+        assertNotNull(result);
+        assertTrue(result.isEmpty());
+        verify(taskRepository, times(1)).findAll();
+    }
+
+    @Test
+    void testGetAllTasks_ReturnsSingleTask() {
+        // Arrange
+        when(taskRepository.findAll()).thenReturn(Collections.singletonList(mockTask));
+
+        // Act
+        List<TaskDTO> result = taskService.getAllTasks();
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(1, result.size());
+        TaskDTO taskDTO = result.get(0);
+        assertEquals("test-uuid-123", taskDTO.getId());
+        assertEquals("Test Task", taskDTO.getTitle());
+        assertEquals("Test Description", taskDTO.getDescription());
+        assertEquals("123 Test St", taskDTO.getAddress());
+        assertEquals("HIGH", taskDTO.getPriority());
+        assertEquals(120, taskDTO.getDuration());
+        verify(taskRepository, times(1)).findAll();
+    }
+
+    @Test
+    void testGetAllTasks_ReturnsMultipleTasks() {
+        // Arrange
+        Task task1 = Task.builder()
+                .id("uuid-1")
+                .title("Task 1")
+                .description("Description 1")
+                .address("Address 1")
+                .priority("HIGH")
+                .estimatedDuration(60)
+                .build();
+
+        Task task2 = Task.builder()
+                .id("uuid-2")
+                .title("Task 2")
+                .description("Description 2")
+                .address("Address 2")
+                .priority("MEDIUM")
+                .estimatedDuration(90)
+                .build();
+
+        Task task3 = Task.builder()
+                .id("uuid-3")
+                .title("Task 3")
+                .description("Description 3")
+                .address("Address 3")
+                .priority("LOW")
+                .estimatedDuration(120)
+                .build();
+
+        when(taskRepository.findAll()).thenReturn(Arrays.asList(task1, task2, task3));
+
+        // Act
+        List<TaskDTO> result = taskService.getAllTasks();
+
+        // Assert
+        assertNotNull(result);
+        assertEquals(3, result.size());
+        
+        assertEquals("uuid-1", result.get(0).getId());
+        assertEquals("Task 1", result.get(0).getTitle());
+        assertEquals("HIGH", result.get(0).getPriority());
+        
+        assertEquals("uuid-2", result.get(1).getId());
+        assertEquals("Task 2", result.get(1).getTitle());
+        assertEquals("MEDIUM", result.get(1).getPriority());
+        
+        assertEquals("uuid-3", result.get(2).getId());
+        assertEquals("Task 3", result.get(2).getTitle());
+        assertEquals("LOW", result.get(2).getPriority());
+        
+        verify(taskRepository, times(1)).findAll();
     }
 }
