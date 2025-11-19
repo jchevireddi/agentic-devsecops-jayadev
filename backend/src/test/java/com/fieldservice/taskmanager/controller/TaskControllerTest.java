@@ -75,28 +75,21 @@ class TaskControllerTest {
 
     @Test
     void testCreateTask_WithMinimalFields() throws Exception {
-        // Arrange
+        // Arrange - this test now expects validation error because address and priority are missing
         TaskDTO inputTask = TaskDTO.builder()
                 .title("Simple Task")
                 .build();
-        
-        TaskDTO savedTask = TaskDTO.builder()
-                .id("test-uuid-5678")
-                .title("Simple Task")
-                .build();
-        
-        when(taskService.createTask(any(TaskDTO.class))).thenReturn(savedTask);
 
         String requestJson = objectMapper.writeValueAsString(inputTask);
 
-        // Act & Assert
+        // Act & Assert - should return 400 due to missing required fields
         mockMvc.perform(post("/api/tasks")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestJson))
-                .andExpect(status().isOk())
+                .andExpect(status().isBadRequest())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id").value("test-uuid-5678"))
-                .andExpect(jsonPath("$.title").value("Simple Task"));
+                .andExpect(jsonPath("$.address").value("Address is required"))
+                .andExpect(jsonPath("$.priority").value("Priority is required"));
     }
 
     @Test
@@ -179,22 +172,96 @@ class TaskControllerTest {
 
     @Test
     void testCreateTask_EmptyRequest() throws Exception {
-        // Arrange
+        // Arrange - empty request should fail validation
         TaskDTO inputTask = TaskDTO.builder().build();
         
-        TaskDTO savedTask = TaskDTO.builder()
-                .id("test-uuid-empty")
+        String requestJson = objectMapper.writeValueAsString(inputTask);
+
+        // Act & Assert - should return 400 due to missing required fields
+        mockMvc.perform(post("/api/tasks")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestJson))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.title").value("Title is required"))
+                .andExpect(jsonPath("$.address").value("Address is required"))
+                .andExpect(jsonPath("$.priority").value("Priority is required"));
+    }
+
+    @Test
+    void testCreateTask_MissingTitle() throws Exception {
+        // Arrange
+        TaskDTO inputTask = TaskDTO.builder()
+                .address("123 Main St")
+                .priority("HIGH")
                 .build();
-        
-        when(taskService.createTask(any(TaskDTO.class))).thenReturn(savedTask);
-        
+
         String requestJson = objectMapper.writeValueAsString(inputTask);
 
         // Act & Assert
         mockMvc.perform(post("/api/tasks")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(requestJson))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value("test-uuid-empty"));
+                .andExpect(status().isBadRequest())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.title").value("Title is required"));
+    }
+
+    @Test
+    void testCreateTask_MissingAddress() throws Exception {
+        // Arrange
+        TaskDTO inputTask = TaskDTO.builder()
+                .title("Fix HVAC")
+                .priority("HIGH")
+                .build();
+
+        String requestJson = objectMapper.writeValueAsString(inputTask);
+
+        // Act & Assert
+        mockMvc.perform(post("/api/tasks")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestJson))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.address").value("Address is required"));
+    }
+
+    @Test
+    void testCreateTask_MissingPriority() throws Exception {
+        // Arrange
+        TaskDTO inputTask = TaskDTO.builder()
+                .title("Fix HVAC")
+                .address("123 Main St")
+                .build();
+
+        String requestJson = objectMapper.writeValueAsString(inputTask);
+
+        // Act & Assert
+        mockMvc.perform(post("/api/tasks")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestJson))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.priority").value("Priority is required"));
+    }
+
+    @Test
+    void testCreateTask_BlankTitle() throws Exception {
+        // Arrange
+        TaskDTO inputTask = TaskDTO.builder()
+                .title("   ")
+                .address("123 Main St")
+                .priority("HIGH")
+                .build();
+
+        String requestJson = objectMapper.writeValueAsString(inputTask);
+
+        // Act & Assert
+        mockMvc.perform(post("/api/tasks")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(requestJson))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.title").value("Title is required"));
     }
 }
