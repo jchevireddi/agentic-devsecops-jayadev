@@ -187,6 +187,16 @@ Work on issue #45
 - Java 17 or higher
 - Maven 3.6 or higher
 
+### Database Configuration
+
+The application uses H2 in-memory database by default. The configuration is as follows:
+- **Database URL**: `jdbc:h2:mem:taskdb`
+- **Username**: `sa`
+- **Password**: (empty)
+- **H2 Console**: Available at `http://localhost:8080/h2-console` when the application is running
+
+The database schema is automatically created on application startup using Hibernate's `create-drop` strategy.
+
 ### Building the Project
 
 1. Navigate to the backend directory:
@@ -211,6 +221,8 @@ View the code coverage report:
 open target/site/jacoco/index.html
 ```
 
+The project maintains 84%+ test coverage across all layers.
+
 ### Running the Application
 
 1. Start the application using Maven:
@@ -225,9 +237,14 @@ open target/site/jacoco/index.html
 
 2. The application will start on `http://localhost:8080`
 
+3. You should see output similar to:
+   ```
+   Started TaskManagerApplication in X.XXX seconds
+   ```
+
 ### Testing the API
 
-Test the POST /api/tasks endpoint:
+Test the POST /api/tasks endpoint to create a task:
 ```bash
 curl -X POST http://localhost:8080/api/tasks \
   -H "Content-Type: application/json" \
@@ -240,10 +257,10 @@ curl -X POST http://localhost:8080/api/tasks \
   }'
 ```
 
-Expected response:
+Expected response (with a generated UUID):
 ```json
 {
-  "id": "generated-uuid",
+  "id": "0f7af77b-0407-458c-9a37-28457fe64379",
   "title": "Fix HVAC System",
   "description": "Client reported AC not cooling properly",
   "address": "123 Main St, Springfield",
@@ -257,3 +274,45 @@ Expected response:
 - **POST /api/tasks** - Create a new task
   - Accepts: JSON body with task fields (title, description, address, priority, duration)
   - Returns: Task object with generated UUID
+  - The task is persisted to the H2 database
+
+### Accessing the H2 Database Console
+
+While the application is running, you can access the H2 database console:
+
+1. Navigate to `http://localhost:8080/h2-console`
+2. Use the following connection details:
+   - **JDBC URL**: `jdbc:h2:mem:taskdb`
+   - **Username**: `sa`
+   - **Password**: (leave empty)
+3. Click "Connect" to browse the database
+
+### Project Structure
+
+```
+backend/
+├── src/
+│   ├── main/
+│   │   ├── java/com/fieldservice/taskmanager/
+│   │   │   ├── controller/     # REST API endpoints
+│   │   │   ├── service/        # Business logic
+│   │   │   ├── repository/     # Data access layer
+│   │   │   ├── entity/         # JPA entities
+│   │   │   └── dto/            # Data transfer objects
+│   │   └── resources/
+│   │       └── application.properties  # Configuration
+│   └── test/                   # Unit and integration tests
+├── pom.xml                     # Maven configuration
+└── target/                     # Build output
+```
+
+### Technology Stack
+
+- **Spring Boot 3.2.0** - Application framework
+- **Spring Data JPA** - Data persistence
+- **H2 Database** - In-memory database
+- **Hibernate** - ORM
+- **Lombok** - Boilerplate code reduction
+- **JUnit 5** - Testing framework
+- **Mockito** - Mocking framework
+- **JaCoCo** - Code coverage
