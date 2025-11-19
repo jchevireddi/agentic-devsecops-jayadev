@@ -2,6 +2,7 @@ package com.fieldservice.taskmanager.controller;
 
 import com.fieldservice.taskmanager.dto.TaskDTO;
 import com.fieldservice.taskmanager.service.TaskService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,7 @@ public class TaskController {
     }
 
     @PostMapping
-    public ResponseEntity<TaskDTO> createTask(@RequestBody TaskDTO taskDTO) {
+    public ResponseEntity<TaskDTO> createTask(@Valid @RequestBody TaskDTO taskDTO) {
         TaskDTO savedTask = taskService.createTask(taskDTO);
         return ResponseEntity.status(HttpStatus.OK).body(savedTask);
     }
