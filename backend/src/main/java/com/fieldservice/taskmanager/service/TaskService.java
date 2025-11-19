@@ -6,6 +6,9 @@ import com.fieldservice.taskmanager.repository.TaskRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class TaskService {
     
@@ -38,5 +41,19 @@ public class TaskService {
                 .priority(savedTask.getPriority())
                 .duration(savedTask.getEstimatedDuration())
                 .build();
+    }
+    
+    @Transactional(readOnly = true)
+    public List<TaskDTO> getAllTasks() {
+        return taskRepository.findAll().stream()
+                .map(task -> TaskDTO.builder()
+                        .id(task.getId())
+                        .title(task.getTitle())
+                        .description(task.getDescription())
+                        .address(task.getAddress())
+                        .priority(task.getPriority())
+                        .duration(task.getEstimatedDuration())
+                        .build())
+                .collect(Collectors.toList());
     }
 }
