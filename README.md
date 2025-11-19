@@ -392,3 +392,113 @@ backend/
 - **JUnit 5** - Testing framework
 - **Mockito** - Mocking framework
 - **JaCoCo** - Code coverage
+
+---
+
+## How to Run the Frontend Project
+
+### Prerequisites
+
+- Node.js 18 or higher
+- npm 9 or higher
+- Backend server running on port 8080 (see above)
+
+### Installing Dependencies
+
+1. Navigate to the frontend directory:
+   ```bash
+   cd frontend
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+### Running Tests
+
+Run all tests:
+```bash
+npm test
+```
+
+Run tests with coverage:
+```bash
+npm run test:coverage
+```
+
+The project maintains 100% test coverage on components.
+
+### Running the Application
+
+1. Ensure the backend is running on `http://localhost:8080` (see backend instructions above)
+
+2. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+3. The application will start on `http://localhost:5173`
+
+4. You should see output similar to:
+   ```
+   VITE v7.2.2  ready in 201 ms
+   ➜  Local:   http://localhost:5173/
+   ```
+
+5. Open your browser and navigate to `http://localhost:5173`
+
+### Using the Task Form
+
+1. Fill in the required fields:
+   - **Title** (required): Enter a task title
+   - **Description** (optional): Enter task details
+   - **Address** (required): Enter the service address
+   - **Priority** (required): Select LOW, MEDIUM, or HIGH
+   - **Estimated Duration** (optional): Enter duration in minutes
+
+2. Click "Create Task" to submit
+
+3. A success message will appear when the task is created successfully
+
+4. The form will reset, ready for the next task
+
+### Building for Production
+
+Build the application:
+```bash
+npm run build
+```
+
+Preview the production build:
+```bash
+npm run preview
+```
+
+### Project Structure
+
+```
+frontend/
+├── src/
+│   ├── components/          # React components
+│   │   ├── TaskForm.jsx     # Task creation form
+│   │   ├── TaskForm.css     # Form styles
+│   │   └── TaskForm.test.jsx # Component tests
+│   ├── test/                # Test setup
+│   │   └── setup.js         # Vitest configuration
+│   ├── App.jsx              # Main application component
+│   ├── App.css              # Application styles
+│   └── main.jsx             # Application entry point
+├── package.json             # Dependencies and scripts
+├── vite.config.js           # Vite configuration
+└── coverage/                # Test coverage reports (generated)
+```
+
+### Technology Stack
+
+- **React 19.2.0** - UI framework
+- **Vite 7.2.2** - Build tool and dev server
+- **Vitest 4.0.10** - Testing framework
+- **React Testing Library 16.3.0** - Component testing utilities
+- **ESLint** - Code linting
+
