@@ -93,6 +93,12 @@ Body:
 
 Create ONE roadmap issue that sequences all created task issues. **Group by bounded context** and show **domain concept progression**.
 
+**CRITICAL - Before creating roadmap:**
+1. List ALL task issues you created in Step 2
+2. For each task, record: GitHub issue # (e.g., #137), TASK number (e.g., TASK-001), exact title, dependencies
+3. Sort by execution order (respecting dependencies), NOT by creation order
+4. In roadmap, reference issues using format: `#[github-number] - [exact-title-from-github]`
+
 **Action:** Use GitHub MCP to create roadmap issue:
 ```
 Title: ROADMAP: MVP Implementation Sequence
@@ -117,42 +123,63 @@ Body:
   **Domain Focus:** [Main aggregate/concept being built]
   
   #### Phase 1: Domain Model Setup
-  1. #[task-issue] - Backend: Create [Aggregate] aggregate with entities
-  2. #[task-issue] - Backend: Add repository interface and mock implementation
+  1. #[github-issue] - TASK-[number]: [Exact title from GitHub issue]
+  2. #[github-issue] - TASK-[number]: [Exact title from GitHub issue]
   
   #### Phase 2: Basic Persistence & Queries
-  3. #[task-issue] - Backend: GET endpoint returning mock data
-  4. #[task-issue] - Backend: Connect repository to real database
+  3. #[github-issue] - TASK-[number]: [Exact title from GitHub issue]
+  4. #[github-issue] - TASK-[number]: [Exact title from GitHub issue]
   
   #### Phase 3: Domain Behavior & Commands
-  5. #[task-issue] - Backend: Implement [Command] handler with invariants
-  6. #[task-issue] - Backend: Emit [DomainEvent] when command succeeds
+  5. #[github-issue] - TASK-[number]: [Exact title from GitHub issue]
+  6. #[github-issue] - TASK-[number]: [Exact title from GitHub issue]
   
   #### Phase 4: Frontend Integration
-  7. #[task-issue] - Frontend: Component displays hardcoded aggregate data
-  8. #[task-issue] - Frontend: Fetch from API and display aggregates
-  9. #[task-issue] - Frontend: Add form to capture command inputs
-  10. #[task-issue] - Frontend: Dispatch command to backend
+  7. #[github-issue] - TASK-[number]: [Exact title from GitHub issue]
+  8. #[github-issue] - TASK-[number]: [Exact title from GitHub issue]
+  9. #[github-issue] - TASK-[number]: [Exact title from GitHub issue]
+  10. #[github-issue] - TASK-[number]: [Exact title from GitHub issue]
   
   #### Phase 5: Validation & Error Handling
-  11. #[task-issue] - Backend: Add domain invariant validation
-  12. #[task-issue] - Frontend: Display validation errors
+  11. #[github-issue] - TASK-[number]: [Exact title from GitHub issue]
+  12. #[github-issue] - TASK-[number]: [Exact title from GitHub issue]
   
   #### Phase 6: Authentication
-  13. #[task-issue] - Backend: Add authentication to aggregate endpoints
-  14. #[task-issue] - Frontend: Handle auth-protected actions
+  13. #[github-issue] - TASK-[number]: [Exact title from GitHub issue]
+  14. #[github-issue] - TASK-[number]: [Exact title from GitHub issue]
   
   #### Phase 7: Cross-Context Integration
-  15. #[task-issue] - Backend: Integrate with [Other Context] via API/events
-  16. #[task-issue] - Frontend: Display cross-context data
+  15. #[github-issue] - TASK-[number]: [Exact title from GitHub issue]
+  16. #[github-issue] - TASK-[number]: [Exact title from GitHub issue]
   
   #### Phase 8: Edge Cases
-  17. #[task-issue] - Backend/Frontend: Handle network errors and edge cases
+  17. #[github-issue] - TASK-[number]: [Exact title from GitHub issue]
   
   ---
   
   ### [Feature/Story 2]: [Name]
   [Repeat pattern above...]
+  
+  ---
+  
+  ## CORRECT Format Example:
+  ```
+  #### Phase 1: Domain Model Setup
+  1. #137 - TASK-001: [Task Management] Create ServiceTask Aggregate Domain Model
+  2. #138 - TASK-002: [Task Management] Add ServiceTask Repository Interface
+  ```
+  
+  ## INCORRECT Format Example:
+  ```
+  #### Phase 1: Domain Model Setup
+  1. #140 - TASK-006: Frontend: Create TaskList component  ← Wrong! Issue #140 is not TASK-006
+  2. #138 - Backend: Add repository  ← Wrong! Missing TASK number and exact title
+  ```
+  
+  **Rules:**
+  - Each line MUST match: GitHub issue # + TASK number + exact title
+  - Order by execution sequence (check "Depends On" field in each issue)
+  - Copy exact titles from GitHub, don't paraphrase
   
   ---
  
