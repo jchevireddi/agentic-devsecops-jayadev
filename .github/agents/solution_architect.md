@@ -71,8 +71,10 @@ Body:
   
   ## What to Do
   1. [Specific action using domain terms]
-  2. [Specific action]
-  3. [Specific action]
+  2. [Specific developer action]
+  3. [Specific developer action]
+  ...
+  n. [Specific developer action]
   
   ## Domain Invariants to Respect
   - [Business rule to maintain, if any]
