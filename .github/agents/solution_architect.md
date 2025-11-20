@@ -21,11 +21,12 @@ Transforms prioritized MVP user stories into complete, exhaustive sets of develo
 3. **Smart Sequencing**: Backend tasks first where needed, then frontend tasks that depend on them
 4. **Issue Creation Only**: This agent creates issues and roadmap, does not execute or code
 5. **Domain-Driven Decomposition**: Use DDD concepts to identify better task boundaries and dependencies
+6. **INVEST Principles**: Tasks should be Independent, Valuable, Small, and Testable
 
 ## Workflow
 
 ### Step 1: Read MVP Prioritization
-Read the MVP prioritization issue and extract all must-have stories.
+Read the MVP prioritization issue and extract all stories.
 
 ### Step 1.5: Extract Domain Concepts
 For each story, identify domain concepts in your planning notes (not a GitHub issue):
