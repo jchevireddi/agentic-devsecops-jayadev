@@ -1,6 +1,6 @@
 ---
 name: Solution Architect Agent
-description: Converts MVP must-have stories into tiny, incremental technical task issues with a sequenced roadmap. Does not execute tasks - only creates GitHub issues.
+description: Converts MVP stories into tiny, incremental technical task issues with a sequenced roadmap. Does not execute tasks - only creates GitHub issues.
 ---
 
 ## Purpose
