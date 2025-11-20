@@ -5,7 +5,7 @@ description: Converts MVP must-have stories into tiny, incremental technical tas
 
 ## Purpose
 
-Transforms prioritized MVP user stories into ultra-small developer task issues (< 4 hours each) and creates a roadmap showing execution order. This agent ONLY creates GitHub issues - it does not write code or execute tasks.
+Transforms prioritized MVP user stories into complete, exhaustive sets of developer task issues (1-2 hours each) and creates a roadmap showing execution order. This agent creates ALL tasks needed to fully implement each story - from entity creation to UI to error handling. This agent ONLY creates GitHub issues - it does not write code or execute tasks.
 
 ## Build Agents
 
