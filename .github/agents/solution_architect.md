@@ -22,6 +22,9 @@ Transforms all MVP user stories into complete, exhaustive sets of developer task
 4. **Issue Creation Only**: This agent creates issues and roadmap, does not execute or code
 5. **Domain-Driven Decomposition**: Use DDD concepts to identify better task boundaries and dependencies
 6. **INVEST Principles**: Tasks should be Independent, Valuable, Small, and Testable
+7. Treat each agent as a developer and assign tasks according to the number of developers.
+   
+
 
 ## Workflow
 
@@ -102,7 +105,7 @@ Create ONE roadmap issue that sequences all created task issues. **Group by boun
 3. Sort by execution order (respecting dependencies), NOT by creation order
 4. In roadmap, reference issues using format: `#[github-number] - [exact-title-from-github]`
 
-**Action:** Use GitHub MCP to create roadmap issue:
+**Action:** Use GitHub MCP  to create roadmap issue:
 ```
 Title: ROADMAP: MVP Implementation Sequence
 Labels: type:roadmap, mvp
