@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TechnicianService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">field-service-api</a> &gt; <a href="index.source.html" class="el_package">com.fieldservice.api.service</a> &gt; <span class="el_source">TechnicianService.java</span></div><h1>TechnicianService.java</h1><pre class="source lang-java linenums">package com.fieldservice.api.service;
+
+import com.fieldservice.api.entity.Technician;
+import com.fieldservice.api.repository.TechnicianRepository;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
+/**
+ * Service layer for Technician operations.
+ */
+@Service
+@Transactional
+public class TechnicianService {
+
+    private final TechnicianRepository technicianRepository;
+
+<span class="fc" id="L21">    public TechnicianService(TechnicianRepository technicianRepository) {</span>
+<span class="fc" id="L22">        this.technicianRepository = technicianRepository;</span>
+<span class="fc" id="L23">    }</span>
+
+    /**
+     * Creates a new technician.
+     *
+     * @param technician the technician to create
+     * @return the created technician
+     */
+    public Technician createTechnician(Technician technician) {
+<span class="fc" id="L32">        return technicianRepository.save(technician);</span>
+    }
+
+    /**
+     * Finds a technician by ID.
+     *
+     * @param id the technician ID
+     * @return the technician if found
+     */
+    @Transactional(readOnly = true)
+    public Optional&lt;Technician&gt; findById(UUID id) {
+<span class="fc" id="L43">        return technicianRepository.findById(id);</span>
+    }
+
+    /**
+     * Returns all technicians.
+     *
+     * @return list of all technicians
+     */
+    @Transactional(readOnly = true)
+    public List&lt;Technician&gt; findAll() {
+<span class="fc" id="L53">        return technicianRepository.findAll();</span>
+    }
+
+    /**
+     * Updates a technician's location.
+     *
+     * @param id        the technician ID
+     * @param latitude  the new latitude
+     * @param longitude the new longitude
+     * @return the updated technician if found
+     */
+    public Optional&lt;Technician&gt; updateLocation(UUID id, Double latitude, Double longitude) {
+<span class="fc" id="L65">        return technicianRepository.findById(id)</span>
+<span class="fc" id="L66">                .map(technician -&gt; {</span>
+<span class="fc" id="L67">                    technician.updateLocation(latitude, longitude);</span>
+<span class="fc" id="L68">                    return technicianRepository.save(technician);</span>
+                });
+    }
+
+    /**
+     * Deletes a technician by ID.
+     *
+     * @param id the technician ID
+     */
+    public void deleteById(UUID id) {
+<span class="fc" id="L78">        technicianRepository.deleteById(id);</span>
+<span class="fc" id="L79">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

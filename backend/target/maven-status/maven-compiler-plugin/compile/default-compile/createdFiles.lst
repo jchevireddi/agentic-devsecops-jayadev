@@ -1,0 +1,7 @@
+com/fieldservice/api/controller/TechnicianController.class
+com/fieldservice/api/dto/UpdateLocationRequest.class
+com/fieldservice/api/enums/TechnicianAvailability.class
+com/fieldservice/api/service/TechnicianService.class
+com/fieldservice/api/FieldServiceApiApplication.class
+com/fieldservice/api/entity/Technician.class
+com/fieldservice/api/repository/TechnicianRepository.class

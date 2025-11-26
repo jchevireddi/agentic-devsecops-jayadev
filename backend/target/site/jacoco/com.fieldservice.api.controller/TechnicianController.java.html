@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TechnicianController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">field-service-api</a> &gt; <a href="index.source.html" class="el_package">com.fieldservice.api.controller</a> &gt; <span class="el_source">TechnicianController.java</span></div><h1>TechnicianController.java</h1><pre class="source lang-java linenums">package com.fieldservice.api.controller;
+
+import com.fieldservice.api.dto.UpdateLocationRequest;
+import com.fieldservice.api.entity.Technician;
+import com.fieldservice.api.service.TechnicianService;
+import jakarta.validation.Valid;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.UUID;
+
+/**
+ * REST controller for Technician operations.
+ */
+@RestController
+@RequestMapping(&quot;/api/technicians&quot;)
+public class TechnicianController {
+
+    private final TechnicianService technicianService;
+
+<span class="fc" id="L22">    public TechnicianController(TechnicianService technicianService) {</span>
+<span class="fc" id="L23">        this.technicianService = technicianService;</span>
+<span class="fc" id="L24">    }</span>
+
+    /**
+     * Creates a new technician.
+     *
+     * @param technician the technician to create
+     * @return the created technician
+     */
+    @PostMapping
+    public ResponseEntity&lt;Technician&gt; createTechnician(@Valid @RequestBody Technician technician) {
+<span class="fc" id="L34">        Technician created = technicianService.createTechnician(technician);</span>
+<span class="fc" id="L35">        return ResponseEntity.status(201).body(created);</span>
+    }
+
+    /**
+     * Gets all technicians.
+     *
+     * @return list of all technicians
+     */
+    @GetMapping
+    public ResponseEntity&lt;List&lt;Technician&gt;&gt; getAllTechnicians() {
+<span class="fc" id="L45">        return ResponseEntity.ok(technicianService.findAll());</span>
+    }
+
+    /**
+     * Gets a technician by ID.
+     *
+     * @param id the technician ID
+     * @return the technician if found
+     */
+    @GetMapping(&quot;/{id}&quot;)
+    public ResponseEntity&lt;Technician&gt; getTechnicianById(@PathVariable UUID id) {
+<span class="fc" id="L56">        return technicianService.findById(id)</span>
+<span class="fc" id="L57">                .map(ResponseEntity::ok)</span>
+<span class="fc" id="L58">                .orElse(ResponseEntity.notFound().build());</span>
+    }
+
+    /**
+     * Updates a technician's location.
+     *
+     * @param id      the technician ID
+     * @param request the location update request
+     * @return the updated technician
+     */
+    @PutMapping(&quot;/{id}/location&quot;)
+    public ResponseEntity&lt;Technician&gt; updateLocation(
+            @PathVariable UUID id,
+            @Valid @RequestBody UpdateLocationRequest request) {
+<span class="fc" id="L72">        return technicianService.updateLocation(id, request.getLatitude(), request.getLongitude())</span>
+<span class="fc" id="L73">                .map(ResponseEntity::ok)</span>
+<span class="fc" id="L74">                .orElse(ResponseEntity.notFound().build());</span>
+    }
+
+    /**
+     * Deletes a technician by ID.
+     *
+     * @param id the technician ID
+     * @return no content response
+     */
+    @DeleteMapping(&quot;/{id}&quot;)
+    public ResponseEntity&lt;Void&gt; deleteTechnician(@PathVariable UUID id) {
+<span class="fc" id="L85">        technicianService.deleteById(id);</span>
+<span class="fc" id="L86">        return ResponseEntity.noContent().build();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
