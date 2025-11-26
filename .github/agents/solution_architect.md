@@ -15,7 +15,11 @@ Transforms all MVP user stories into complete, exhaustive sets of developer task
 - **[Smoke Test Executor Agent](smoke_test_executor.md)**: Smoke testing strategies and requirements
 
 ## Core Principles
+Each task MUST include this new section:
 
+**Assigned To Agent:** [Microservice Coder Agent | React UI Agent | Test Generator Agent | Smoke Test Executor Agent]
+**Parallelization Level:** [number of agents that can work simultaneously]
+**Recommended Developers for This Task:** [1–3]
 1. **Micro-Steps**: Break into smallest possible increments (1-4 hours)
 2. **Progressive Build**: Start simple (hardcoded) → Add real data → Add validation → Add auth → Handle edge cases
 3. **Smart Sequencing**: Backend tasks first where needed, then frontend tasks that depend on them
