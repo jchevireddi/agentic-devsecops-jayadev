@@ -1,7 +1,0 @@
-GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
-field-service-api,com.fieldservice.api.enums,TechnicianAvailability,0,21,0,0,0,4,0,1,0,1
-field-service-api,com.fieldservice.api.controller,TechnicianController,0,54,0,0,0,14,0,6,0,6
-field-service-api,com.fieldservice.api.service,TechnicianService,0,46,0,0,0,12,0,7,0,7
-field-service-api,com.fieldservice.api.dto,UpdateLocationRequest,0,26,0,0,0,12,0,6,0,6
-field-service-api,com.fieldservice.api.entity,Technician,4,91,0,0,2,38,1,21,1,21
-field-service-api,com.fieldservice.api,FieldServiceApiApplication,5,3,0,0,2,1,1,1,1,1
